@@ -1,8 +1,12 @@
 package com.example.authenticationdemo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Table(name = "clubs")
 @Entity
@@ -14,6 +18,19 @@ public class Club {
     @Column(name = "total_member_count")
     int totalMemberCount;
 
+
+
+    @ManyToMany
+    @JoinTable(
+        name = "student_registeredToClub",
+            joinColumns = @JoinColumn(name = "club_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private Set<Student> clubMembers = new HashSet<>();
+
+    @OneToMany(mappedBy = "dependentClub")
+    private Set<Event> clubEvents = new HashSet<>();
+
     public int getTotalMemberCount() {
         return totalMemberCount;
     }
@@ -22,18 +39,16 @@ public class Club {
         this.totalMemberCount = totalMemberCount;
     }
 
-    @OneToMany(targetEntity = User.class, cascade = CascadeType.ALL)
-            @JoinColumn(  name = "user_id", referencedColumnName = "id")
-    List<User> clubMembers;
     public int getId() {
         return id;
     }
 
-    public List<User> getClubMembers() {
+
+    public Set<Student> getClubMembers() {
         return clubMembers;
     }
 
-    public void setClubMembers(List<User> clubMembers) {
+    public void setClubMembers(Set<Student> clubMembers) {
         this.clubMembers = clubMembers;
     }
 
@@ -47,5 +62,35 @@ public class Club {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    /*public void registerUserToClub(User user) {
+        clubMembers.add(user);
+        totalMemberCount = clubMembers.size();
+    }*/
+    public void registerStudentToClub(Student student){
+        clubMembers.add(student);
+        totalMemberCount = clubMembers.size();
+    }
+    public Set<Event> getClubEvents() {
+        return clubEvents;
+    }
+
+    public void setClubEvents(Set<Event> clubEvents) {
+        this.clubEvents = clubEvents;
+    }
+    public void addToClubEvents(Event event){
+        clubEvents.add(event);
+    }
+
+    @Override
+    public String toString() {
+        return "Club{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", totalMemberCount=" + totalMemberCount +
+                ", clubMembers=" + clubMembers +
+                ", clubEvents=" + clubEvents +
+                '}';
     }
 }

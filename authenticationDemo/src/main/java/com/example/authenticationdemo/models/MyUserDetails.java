@@ -18,13 +18,13 @@ public class MyUserDetails implements UserDetails {
     private List<GrantedAuthority> authorities;
 
     public MyUserDetails(User user){
-        this.userName = user.getUserName();
+        this.userName = user.getName();
         this.password = user.getPassword();
         this.id = user.getId();
-        this.active = user.isActive();
-        this.authorities = Arrays.stream(user.getRoles().split(","))
+        //this.active = user.isActive();
+        /*this.authorities = Arrays.stream(user.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
     }
 
 

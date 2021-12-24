@@ -1,15 +1,52 @@
 package com.example.authenticationdemo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public class Student {
-    @Id
-    long id;
-    String ROLE;
+@DiscriminatorValue(value = "STUDENT")
+public class Student extends User{
+    //@Id
+    //int student_id;
     int gePoints;
-    boolean isTakingGeCourse;
+    boolean takingGeCourse;
+    //JoinRequestHandler joinRequest;
+    //Set<Event> registeredPublicEvents = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "clubMembers")
+    private Set<Club> registeredClubs = new HashSet<>();
+
+    public Student() {
+
+    }
+
+    public Student(int id, String name, String surname, String password, String email, int gePoints, boolean takingGeCourse, Set<Club> registeredClubs) {
+        super(id, name, surname, password, email);
+        this.gePoints = gePoints;
+        this.takingGeCourse = takingGeCourse;
+        this.registeredClubs = registeredClubs;
+    }
+
+    public Set<Club> getRegisteredClubs() {
+        return registeredClubs;
+    }
+
+    public void setRegisteredClubs(Set<Club> registeredClubs) {
+        this.registeredClubs = registeredClubs;
+    }
+
+
+    /*public int getStudent_id() {
+        return student_id;
+    }*/
+
+    /*public void setStudent_id(int student_id) {
+        this.student_id = student_id;
+    }*/
 
     public int getGePoints() {
         return gePoints;
@@ -20,26 +57,10 @@ public class Student {
     }
 
     public boolean isTakingGeCourse() {
-        return isTakingGeCourse;
+        return takingGeCourse;
     }
 
     public void setTakingGeCourse(boolean takingGeCourse) {
-        isTakingGeCourse = takingGeCourse;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getROLE() {
-        return ROLE;
-    }
-
-    public void setROLE(String ROLE) {
-        this.ROLE = ROLE;
+        this.takingGeCourse = takingGeCourse;
     }
 }
