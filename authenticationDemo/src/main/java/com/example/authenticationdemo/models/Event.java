@@ -3,6 +3,8 @@ package com.example.authenticationdemo.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Event {
@@ -27,6 +29,21 @@ public class Event {
     @JoinColumn(name = "club_id")
     private Club dependentClub;
 
+    @ManyToMany
+    @JoinTable(
+            name = "student_registeredToEvent",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private Set<Student> registeredStudents = new HashSet<>();
+
+    public Set<Student> getRegisteredStudents() {
+        return registeredStudents;
+    }
+
+    public void setRegisteredStudents(Set<Student> registeredStudents) {
+        this.registeredStudents = registeredStudents;
+    }
 
     @Override
     public String toString() {
@@ -54,5 +71,9 @@ public class Event {
 
     public void assignClub(Club club) {
         this.dependentClub = dependentClub;//assigning the event to club
+    }
+
+    public void registerStudentToEvent(Student student){
+        registeredStudents.add(student);
     }
 }

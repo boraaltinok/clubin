@@ -1,9 +1,11 @@
 package com.example.authenticationdemo.services;
 
 import com.example.authenticationdemo.models.Club;
+import com.example.authenticationdemo.models.Event;
 import com.example.authenticationdemo.models.Student;
 import com.example.authenticationdemo.models.User;
 import com.example.authenticationdemo.repositories.ClubRepository;
+import com.example.authenticationdemo.repositories.EventRepository;
 import com.example.authenticationdemo.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ public class StudentService {
     StudentRepository studentRepository;
     @Autowired
     ClubRepository clubRepository;
+    @Autowired
+    EventRepository eventRepository;
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -52,5 +56,19 @@ public class StudentService {
 
     public void deleteAllStudents() {
         studentRepository.deleteAll();
+    }
+
+    public Event registerToEvent(int student_id, int event_id) {
+        Student student = studentRepository.findById(student_id).get();
+        Event event = eventRepository.findById(event_id).get();
+
+        event.registerStudentToEvent(student);
+        student.registerToEvent(event);
+
+        studentRepository.save(student);
+
+        return eventRepository.save(event);
+
+
     }
 }

@@ -20,6 +20,11 @@ public class Student extends User{
     @ManyToMany(mappedBy = "clubMembers")
     private Set<Club> registeredClubs = new HashSet<>();
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "registeredStudents")
+    private Set<Event> registeredEvents = new HashSet<>();
+
+
     public Student() {
 
     }
@@ -62,5 +67,9 @@ public class Student extends User{
 
     public void setTakingGeCourse(boolean takingGeCourse) {
         this.takingGeCourse = takingGeCourse;
+    }
+
+    public void registerToEvent(Event event){
+        registeredEvents.add(event);
     }
 }

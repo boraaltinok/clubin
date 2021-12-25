@@ -1,5 +1,6 @@
 package com.example.authenticationdemo.controllers;
 
+import com.example.authenticationdemo.models.Event;
 import com.example.authenticationdemo.models.Student;
 import com.example.authenticationdemo.repositories.AllClubsRepository;
 import com.example.authenticationdemo.repositories.ClubRepository;
@@ -10,6 +11,7 @@ import com.example.authenticationdemo.models.User;
 import com.example.authenticationdemo.services.StudentService;
 import com.example.authenticationdemo.sub.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -87,6 +89,11 @@ public class StudentController {
     @DeleteMapping("/deleteAllStudents")
     public void deleteALlStudents(){
         studentService.deleteAllStudents();
+    }
+
+    @PutMapping("/registerToEvent/student_id={student_id}/event_id={event_id}")
+    public Event registerToEvent(@PathVariable int student_id, @PathVariable int event_id){
+        return studentService.registerToEvent(student_id, event_id);
     }
 
 
