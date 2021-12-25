@@ -10,7 +10,16 @@ import javax.persistence.*;
 )
 public abstract class Notification {
     @Id
+            @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
+
+    public Notification(){
+
+    }
+    public Notification(boolean visibility, Event event) {
+        this.visibility = visibility;
+        this.event = event;
+    }
 
     boolean visibility;
 

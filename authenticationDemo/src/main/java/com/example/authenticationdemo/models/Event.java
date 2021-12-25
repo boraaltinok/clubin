@@ -20,11 +20,12 @@ public class Event {
     int gePoint;
     int capacity;
     boolean isPassed;
+    String description;
     boolean isOnline;
     int budget;
 
     public Event(int id, String name, Date date, LocalTime startingTime,
-                 LocalTime endingTime, int gePoint, int capacity, boolean isPassed, boolean isOnline,
+                 LocalTime endingTime, int gePoint, int capacity, boolean isPassed,String description, boolean isOnline,
                  int budget, Club dependentClub, Set<Student> registeredStudents,
                  SpecificEventNotification specificEventNotification) {
         this.id = id;
@@ -35,6 +36,7 @@ public class Event {
         this.gePoint = gePoint;
         this.capacity = capacity;
         this.isPassed = isPassed;
+        this.description = description;
         this.isOnline = isOnline;
         this.budget = budget;
         this.dependentClub = dependentClub;
@@ -197,5 +199,13 @@ public class Event {
 
     public void setBudget(int budget) {
         this.budget = budget;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

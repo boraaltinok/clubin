@@ -2,6 +2,7 @@ package com.example.authenticationdemo.controllers;
 
 import com.example.authenticationdemo.models.Event;
 import com.example.authenticationdemo.services.EventService;
+import com.example.authenticationdemo.services.SpecificEventNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,8 @@ import java.util.List;
 public class EventController {
     @Autowired
     EventService eventService;
+    @Autowired
+    SpecificEventNotificationService specificEventNotificationService;
 
     @GetMapping("/displayAllEvents")
     public List<Event> displayAllEvents(){

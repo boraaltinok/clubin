@@ -1,14 +1,8 @@
 package com.example.authenticationdemo.controllers;
 
 import com.example.authenticationdemo.models.*;
-import com.example.authenticationdemo.repositories.AllClubsRepository;
-import com.example.authenticationdemo.repositories.ClubRepository;
-import com.example.authenticationdemo.repositories.StudentRepository;
-import com.example.authenticationdemo.repositories.UserRepository;
 import com.example.authenticationdemo.services.StudentService;
-import com.example.authenticationdemo.sub.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
