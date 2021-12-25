@@ -33,7 +33,7 @@ public class ClubController {
         return "deleted clubs's id : "+ id;
     }
     @PostMapping("/addClub")
-    public Club addStudent(@RequestBody Club club){
+    public Club addClub(@RequestBody Club club){
         return clubService.addClub(club);
     }
 

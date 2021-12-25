@@ -1,13 +1,10 @@
 package com.example.authenticationdemo.controllers;
 
-import com.example.authenticationdemo.models.Event;
-import com.example.authenticationdemo.models.Student;
+import com.example.authenticationdemo.models.*;
 import com.example.authenticationdemo.repositories.AllClubsRepository;
 import com.example.authenticationdemo.repositories.ClubRepository;
 import com.example.authenticationdemo.repositories.StudentRepository;
 import com.example.authenticationdemo.repositories.UserRepository;
-import com.example.authenticationdemo.models.Club;
-import com.example.authenticationdemo.models.User;
 import com.example.authenticationdemo.services.StudentService;
 import com.example.authenticationdemo.sub.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +91,11 @@ public class StudentController {
     @PutMapping("/registerToEvent/student_id={student_id}/event_id={event_id}")
     public Event registerToEvent(@PathVariable int student_id, @PathVariable int event_id){
         return studentService.registerToEvent(student_id, event_id);
+    }
+
+    @GetMapping("/getStudentEventNotifications/student_id={student_id}")
+    public List<SpecificEventNotification> getStudentEventNotifications(@PathVariable int student_id){
+        return studentService.getStudentEventNotifications(student_id);
     }
 
 
