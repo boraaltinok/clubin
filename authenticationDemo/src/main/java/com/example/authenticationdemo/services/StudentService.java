@@ -9,8 +9,10 @@ import com.example.authenticationdemo.requests.CreateClubFormRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class StudentService {
@@ -102,5 +104,19 @@ public class StudentService {
             System.out.println("Club form is already on the list");
             return null;
         }
+    /*
+    * Finds the student by student_id
+    * Gets the all the clubs a student is registered to
+    * Gets an event, finds its notification adds it on list and repeats until all notifications
+    * */
+    public List<SpecificEventNotification> getStudentEventNotifications(int student_id) {
+        Student student = studentRepository.findById(student_id).orElse(null);
+        Set<SpecificEventNotification> studentsAllNotifications = new HashSet<>();
+        List<Event> studentRegisteredEvents =List.copyOf(student.getRegisteredEvents());
+
+        for(int i = 0; i < studentRegisteredEvents.size(); i++){
+            studentsAllNotifications.add(studentRegisteredEvents.get(i).getSpecificEventNotification());
+        }
+        return List.copyOf(studentsAllNotifications);
     }
 }

@@ -19,6 +19,9 @@ public class Club {
     int totalMemberCount;
 
 
+    @OneToOne()
+            @JoinColumn(name = "manager_id", referencedColumnName = "id")
+    ClubManager clubManager;
 
     @ManyToMany
     @JoinTable(
@@ -92,6 +95,14 @@ public class Club {
                 ", clubMembers=" + clubMembers +
                 ", clubEvents=" + clubEvents +
                 '}';
+    }
+
+    public ClubManager getClubManager() {
+        return clubManager;
+    }
+
+    public void setClubManager(ClubManager clubManager) {
+        this.clubManager = clubManager;
     }
 
 }

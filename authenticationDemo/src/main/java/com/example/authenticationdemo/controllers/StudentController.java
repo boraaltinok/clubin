@@ -111,4 +111,11 @@ public class StudentController {
         System.out.println("YETEEEEEEEEEEEEEEEEEERRR");
         return studentService.addCreateClubForm(createClubFormRequest);
     }
+    @GetMapping("/getStudentEventNotifications/student_id={student_id}")
+    public List<SpecificEventNotification> getStudentEventNotifications(@PathVariable int student_id){
+        return studentService.getStudentEventNotifications(student_id);
+    }
+
+
+
 }
