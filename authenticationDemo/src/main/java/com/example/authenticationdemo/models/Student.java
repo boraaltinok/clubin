@@ -16,6 +16,25 @@ public class Student extends User{
     //JoinRequestHandler joinRequest;
     //Set<Event> registeredPublicEvents = new HashSet<>();
 
+    @OneToMany(mappedBy = "creatorStudent")
+    private Set<CreateClubForm> createdClubForm = new HashSet<>();
+
+    public Set<CreateClubForm> getCreatedClubForm() {
+        return createdClubForm;
+    }
+
+    public void setCreatedClubForm(Set<CreateClubForm> createdClubForm) {
+        this.createdClubForm = createdClubForm;
+    }
+
+    public Set<Event> getRegisteredEvents() {
+        return registeredEvents;
+    }
+
+    public void setRegisteredEvents(Set<Event> registeredEvents) {
+        this.registeredEvents = registeredEvents;
+    }
+
     @JsonIgnore
     @ManyToMany(mappedBy = "clubMembers")
     private Set<Club> registeredClubs = new HashSet<>();

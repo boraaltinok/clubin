@@ -18,10 +18,16 @@ public class ClubController {
 
     @Autowired
     ClubService clubService;
+
+    @GetMapping("/findStudentsOfClub/club_id={club_id}")
+    public List<Student> displayRegisteredStudents(@PathVariable int club_id){
+        return clubService.displayRegisteredStudents(club_id);
+    }
     @GetMapping("/allClubs")
     public List<Club> displayAllClubs(){
         return clubService.displayAllClubs();
     }
+
     @GetMapping("findSpecificClub/club_id={club_id}")
     public Optional<Club> displaySpecificClub(@PathVariable int club_id){
         return clubService.displaySpecificClub(club_id);
@@ -33,7 +39,7 @@ public class ClubController {
         return "deleted clubs's id : "+ id;
     }
     @PostMapping("/addClub")
-    public Club addStudent(@RequestBody Club club){
+    public Club addClub(@RequestBody Club club){
         return clubService.addClub(club);
     }
 

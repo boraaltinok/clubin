@@ -1,13 +1,13 @@
 package com.example.authenticationdemo.controllers;
 
-import com.example.authenticationdemo.models.Event;
-import com.example.authenticationdemo.models.Student;
+import com.example.authenticationdemo.models.*;
 import com.example.authenticationdemo.repositories.AllClubsRepository;
 import com.example.authenticationdemo.repositories.ClubRepository;
 import com.example.authenticationdemo.repositories.StudentRepository;
 import com.example.authenticationdemo.repositories.UserRepository;
-import com.example.authenticationdemo.models.Club;
-import com.example.authenticationdemo.models.User;
+import com.example.authenticationdemo.requests.CreateClubFormRequest;
+import com.example.authenticationdemo.services.CreateClubFormService;
+import com.example.authenticationdemo.services.CreateEventFormService;
 import com.example.authenticationdemo.services.StudentService;
 import com.example.authenticationdemo.sub.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,14 @@ import java.util.Optional;
 public class StudentController {
     @Autowired
     StudentService studentService;
+    /*@Autowired
+    CreateEventFormService createEventFormService;
+    @Autowired
+    CreateClubFormService createClubFormService;
+
+     */
+
+
     /*@Autowired
     UserRepository userRepository;
     @Autowired
@@ -77,6 +85,7 @@ public class StudentController {
 
     @PostMapping("/addStudent")
     public Student addStudent(@RequestBody Student student){
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         return studentService.addStudent(student);
     }
 
@@ -87,15 +96,19 @@ public class StudentController {
     }
 
     @DeleteMapping("/deleteAllStudents")
-    public void deleteALlStudents(){
+    public void deleteAllStudents(){
         studentService.deleteAllStudents();
     }
 
-    @PutMapping("/registerToEvent/student_id={student_id}/event_id={event_id}")
+    @PutMapping("registerToEvent/student_id={student_id}/event_id={event_id}")
     public Event registerToEvent(@PathVariable int student_id, @PathVariable int event_id){
         return studentService.registerToEvent(student_id, event_id);
     }
 
-
-
+    // postmapping- createClubForm()
+    @PostMapping("/createClubFormStudent")
+    public CreateClubForm addCreateClubForm(@RequestBody CreateClubFormRequest createClubFormRequest ){
+        System.out.println("YETEEEEEEEEEEEEEEEEEERRR");
+        return studentService.addCreateClubForm(createClubFormRequest);
+    }
 }

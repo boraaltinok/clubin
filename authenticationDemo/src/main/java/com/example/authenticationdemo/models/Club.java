@@ -93,4 +93,5 @@ public class Club {
                 ", clubEvents=" + clubEvents +
                 '}';
     }
+
 }

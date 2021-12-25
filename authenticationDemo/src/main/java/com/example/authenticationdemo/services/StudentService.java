@@ -1,12 +1,11 @@
 package com.example.authenticationdemo.services;
 
-import com.example.authenticationdemo.models.Club;
-import com.example.authenticationdemo.models.Event;
-import com.example.authenticationdemo.models.Student;
-import com.example.authenticationdemo.models.User;
+import com.example.authenticationdemo.models.*;
 import com.example.authenticationdemo.repositories.ClubRepository;
+import com.example.authenticationdemo.repositories.CreateClubFormRepository;
 import com.example.authenticationdemo.repositories.EventRepository;
 import com.example.authenticationdemo.repositories.StudentRepository;
+import com.example.authenticationdemo.requests.CreateClubFormRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +20,12 @@ public class StudentService {
     ClubRepository clubRepository;
     @Autowired
     EventRepository eventRepository;
+    @Autowired
+    CreateClubFormRepository createClubFormRepository;
+    @Autowired
+    UserService userService;
+    @Autowired
+    StudentActivityCenterService studentActivityCenterService;
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -70,5 +75,32 @@ public class StudentService {
         return eventRepository.save(event);
 
 
+    }
+
+    //createClubFormRequest has four properties, student_id, deanOffice_id, studentActivityCenter_id, isSuccessful = false
+    public CreateClubForm addCreateClubForm(CreateClubFormRequest createClubFormRequest){
+        CreateClubForm clubForm = createClubFormRepository.findById(createClubFormRequest.getCreateClubForm_id()).orElse(null);
+        if(clubForm == null){
+            //CreateClubForm createClubForm = new CreateClubForm();
+//            Student student = (Student)userService.findById(createClubFormRequest);
+            clubForm = new CreateClubForm();
+            StudentActivityCenter studentActivityCenter = (StudentActivityCenter)userService.findById(createClubFormRequest.getStudentActivityCenter_id());
+            DeanOffice deanOffice = (DeanOffice)userService.findById(createClubFormRequest.getDeanOffice_id());
+            clubForm.setSuccesfull(false);
+            clubForm.setPassedFromSac(false);
+            clubForm.setClubName(createClubFormRequest.getClubName());
+            Student student = getStudent(createClubFormRequest.getStudent_id()).orElse(null);
+            clubForm.setCreatorStudent(student);
+            clubForm.setDeanOffice(deanOffice);
+            clubForm.setStudentActivityCenter(studentActivityCenter);
+            clubForm.setId(createClubFormRequest.getCreateClubForm_id());
+            createClubFormRepository.save(clubForm);
+            //studentActivityCenterService.addPendingCreateClubForm(createClubFormRequest);
+            return clubForm;
+        }
+        else{
+            System.out.println("Club form is already on the list");
+            return null;
+        }
     }
 }

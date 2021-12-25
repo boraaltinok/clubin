@@ -7,8 +7,9 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication()
+
 @EnableJpaRepositories
+@SpringBootApplication()
 public class AuthenticationDemoApplication {
 
     public static void main(String[] args) {

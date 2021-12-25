@@ -52,4 +52,9 @@ public class ClubService {
         eventRepository.save(event);*/
         return  eventRepository.save(eventToCreate);
     }
+
+    public List<Student> displayRegisteredStudents(int club_id) {
+        Club club = clubRepository.findById(club_id).get();
+        return List.copyOf(club.getClubMembers());
+    }
 }

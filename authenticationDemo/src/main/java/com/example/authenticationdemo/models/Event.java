@@ -9,6 +9,7 @@ import java.util.Set;
 @Entity
 public class Event {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     String name;
     int gePoint;

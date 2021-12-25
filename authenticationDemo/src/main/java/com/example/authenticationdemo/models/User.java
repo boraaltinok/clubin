@@ -1,6 +1,7 @@
 package com.example.authenticationdemo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.lang.reflect.Array;
@@ -15,6 +16,8 @@ import java.util.Set;
 )//one additional column discriminator column
 @Table(name = "User")
 public abstract class User{
+
+
     @Id
     private int id;
     private String name;

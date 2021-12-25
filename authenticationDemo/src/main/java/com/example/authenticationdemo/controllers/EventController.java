@@ -1,5 +1,6 @@
 package com.example.authenticationdemo.controllers;
 
+
 import com.example.authenticationdemo.models.Event;
 import com.example.authenticationdemo.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
