@@ -43,14 +43,6 @@ public class Student extends User{
     @ManyToMany(mappedBy = "registeredStudents")
     private Set<Event> registeredEvents = new HashSet<>();
 
-    public Set<Event> getRegisteredEvents() {
-        return registeredEvents;
-    }
-
-    public void setRegisteredEvents(Set<Event> registeredEvents) {
-        this.registeredEvents = registeredEvents;
-    }
-
     public Student() {
 
     }

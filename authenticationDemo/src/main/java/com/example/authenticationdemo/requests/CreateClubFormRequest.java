@@ -12,6 +12,8 @@ public class CreateClubFormRequest {
     String clubName;
     int club_id;
     boolean isSuccessfull = false;
+    String description;
+    String contactInfo;
 
     public int getCreateClubForm_id() {
         return createClubForm_id;
@@ -69,4 +71,19 @@ public class CreateClubFormRequest {
         this.club_id = club_id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
+    }
 }

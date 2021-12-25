@@ -45,9 +45,7 @@ public class StudentService {
     }
 
     public void deleteStudent(int id) {
-        Optional<Student> deletedStudent = studentRepository.findById(id);
         studentRepository.deleteById(id);
-        studentRepository.delete(deletedStudent.get());
     }
     public Student addStudent(Student student){
         return studentRepository.save(student);
@@ -80,14 +78,14 @@ public class StudentService {
     }
 
     //createClubFormRequest has four properties, student_id, deanOffice_id, studentActivityCenter_id, isSuccessful = false
-    public CreateClubForm addCreateClubForm(CreateClubFormRequest createClubFormRequest){
+    public CreateClubForm addCreateClubForm(CreateClubFormRequest createClubFormRequest) {
         CreateClubForm clubForm = createClubFormRepository.findById(createClubFormRequest.getCreateClubForm_id()).orElse(null);
-        if(clubForm == null){
+        if (clubForm == null) {
             //CreateClubForm createClubForm = new CreateClubForm();
 //            Student student = (Student)userService.findById(createClubFormRequest);
             clubForm = new CreateClubForm();
-            StudentActivityCenter studentActivityCenter = (StudentActivityCenter)userService.findById(createClubFormRequest.getStudentActivityCenter_id());
-            DeanOffice deanOffice = (DeanOffice)userService.findById(createClubFormRequest.getDeanOffice_id());
+            StudentActivityCenter studentActivityCenter = (StudentActivityCenter) userService.findById(createClubFormRequest.getStudentActivityCenter_id());
+            DeanOffice deanOffice = (DeanOffice) userService.findById(createClubFormRequest.getDeanOffice_id());
             clubForm.setSuccesfull(false);
             clubForm.setPassedFromSac(false);
             clubForm.setClubName(createClubFormRequest.getClubName());
@@ -99,11 +97,11 @@ public class StudentService {
             createClubFormRepository.save(clubForm);
             //studentActivityCenterService.addPendingCreateClubForm(createClubFormRequest);
             return clubForm;
-        }
-        else{
+        } else {
             System.out.println("Club form is already on the list");
             return null;
         }
+    }
     /*
     * Finds the student by student_id
     * Gets the all the clubs a student is registered to
@@ -119,4 +117,6 @@ public class StudentService {
         }
         return List.copyOf(studentsAllNotifications);
     }
+
+
 }

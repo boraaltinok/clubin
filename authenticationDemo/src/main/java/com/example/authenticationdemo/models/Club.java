@@ -17,7 +17,8 @@ public class Club {
     String name;
     @Column(name = "total_member_count")
     int totalMemberCount;
-
+    private String description;
+    private String contactInfo;
 
     @OneToOne()
             @JoinColumn(name = "manager_id", referencedColumnName = "id")
@@ -105,4 +106,19 @@ public class Club {
         this.clubManager = clubManager;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
+    }
 }

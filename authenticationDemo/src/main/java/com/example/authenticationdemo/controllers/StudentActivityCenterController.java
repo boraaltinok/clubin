@@ -31,12 +31,12 @@ public class StudentActivityCenterController {
         return studentActivityCenterService.addPendingCreateClubForm(request);
     }
 
-    @PutMapping("/sac/answerCreateClubForm")
+    @PutMapping("sac/answerCreateClubForm")
     public CreateClubForm answerCreateClubForm(@RequestBody CreateClubFormRequest request){
         return studentActivityCenterService.answerCreateClubForm(request);
     }
 
-    @PostMapping("/addStudentActivityCenter")
+    @PostMapping("addStudentActivityCenter")
     public StudentActivityCenter addStudentActivityCenter(@RequestBody StudentActivityCenter studentActivityCenter){
         return studentActivityCenterService.addStudent(studentActivityCenter);
     }

@@ -10,6 +10,7 @@ public class ClubManager extends User{
     @JoinColumn
     private Club myClub;
 
+
     public Club getMyClub() {
         return myClub;
     }
@@ -17,4 +18,5 @@ public class ClubManager extends User{
     public void setMyClub(Club myClub) {
         this.myClub = myClub;
     }
+
 }

@@ -87,6 +87,13 @@ public class CreateClubFormService {
         return createClubFormRepository.findAll();
     }
 
+    public CreateClubForm saveForm(CreateClubForm form){
+        return createClubFormRepository.save(form);
+    }
+
+    public void deleteForm(int id){
+        createClubFormRepository.deleteById(id);
+    }
     /*public CreateClubForm addCreateClubForm(CreateClubFormRequest createClubFormRequest) {
     }
 

@@ -50,13 +50,16 @@ public class StudentActivityCenterService {
         CreateClubFormRequest result = null;
         StudentActivityCenter sac = studentActivityCenterRepository.findById(request.getStudentActivityCenter_id()).orElse(null);
         Optional<CreateClubForm> clubForm = createClubFormService.findById(request.getCreateClubForm_id());
-        if(sac != null && clubForm != null){
+        if(sac != null && clubForm.isPresent()){
             System.out.println("11111111111111111111111111111111111111111111111111111");
                 deanOfficeService.takeCreateClubForm(request,clubForm.get());
             System.out.println("222222222222222222222222222222222222222222");
                 Set<CreateClubForm> createClubForms = sac.getCreateClubForms();
-                createClubForms.remove(clubForm);
+                clubForm.get().setPassedFromSac(true);
+                createClubForms.remove(clubForm.get());
                 sac.setCreateClubForms(createClubForms);
+                createClubFormService.deleteForm(request.getCreateClubForm_id());
+                createClubFormService.saveForm(clubForm.get());
                 return clubForm.get();
         }
         else{
@@ -72,4 +75,6 @@ public class StudentActivityCenterService {
     public List<CreateClubForm> seeAllCreateClubForms() {
         return createClubFormService.findAll();
     }
+
+
 }

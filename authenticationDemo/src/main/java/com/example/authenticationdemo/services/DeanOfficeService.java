@@ -1,9 +1,6 @@
 package com.example.authenticationdemo.services;
 
-import com.example.authenticationdemo.models.Club;
-import com.example.authenticationdemo.models.CreateClubForm;
-import com.example.authenticationdemo.models.CreateEventForm;
-import com.example.authenticationdemo.models.DeanOffice;
+import com.example.authenticationdemo.models.*;
 import com.example.authenticationdemo.repositories.DeanOfficeRepository;
 import com.example.authenticationdemo.requests.CreateClubFormRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +17,19 @@ public class DeanOfficeService {
     StudentService studentService;
     CreateClubFormService createClubFormService;
     ClubService clubService;
+    ClubManagerService clubManagerService;
     //    ClubManagerService clubManagerService;
 
     UserService userService;
 
-    public DeanOfficeService(@Lazy DeanOfficeRepository deanOfficeRepository, @Lazy StudentService studentService,@Lazy CreateClubFormService createClubFormService, ClubService clubService, UserService userService) {
+    public DeanOfficeService(@Lazy DeanOfficeRepository deanOfficeRepository, @Lazy StudentService studentService,@Lazy CreateClubFormService createClubFormService, ClubService clubService, UserService userService,
+                                ClubManagerService clubManagerService) {
         this.deanOfficeRepository = deanOfficeRepository;
         this.studentService = studentService;
         this.createClubFormService = createClubFormService;
         this.clubService = clubService;
         this.userService = userService;
+        this.clubManagerService = clubManagerService;
     }
 
     public DeanOffice getDeanOffice(int id) {
@@ -61,17 +61,39 @@ public class DeanOfficeService {
         Optional<CreateClubForm> clubForm = createClubFormService.findById(request.getCreateClubForm_id());
         System.out.println("IKINCIIIII");
         if (clubForm.isPresent() && deanOffice != null) {
+            //find the attached student for createClubFormRequest
+            Optional<Student> student = studentService.getStudent(request.getStudent_id());
                 //take the student parameter and make it club manager and create the club.
+            if(student.isPresent()) {
                 clubForm.get().setPassedFromSac(true);
                 clubForm.get().setSuccesfull(true);
                 deanOffice.deleteCreateClubForm(clubForm.get());
                 Club club = new Club();
                 club.setId(request.getClub_id());
+                club.setDescription(request.getDescription());
+                club.setContactInfo(request.getContactInfo());
                 club.setName(request.getClubName());
+                studentService.deleteStudent(student.get().getId());
+                ClubManager manager = new ClubManager();
+                manager.setEmail(student.get().getEmail());
+                manager.setMyClub(club);
+                manager.setId(student.get().getId());
+                manager.setPassword(student.get().getPassword());
+                manager.setName(student.get().getName());
+                manager.setSurname(student.get().getSurname());
+                club.setClubManager(manager);
                 clubService.addClub(club);
+
+                //clubManagerService.createManager(manager);
                 return clubForm.get();
-        } else {
-            System.out.println("CLUB FORM NULLLLLL");
+            }
+            else {
+                    System.out.println("Student is null");
+                    return null;
+                }
+            }
+        else{
+            System.out.println("Dean office or clubForm is null!!!!");
             return null;
         }
     }

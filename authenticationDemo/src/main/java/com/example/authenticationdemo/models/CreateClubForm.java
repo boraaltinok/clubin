@@ -52,4 +52,5 @@ public class CreateClubForm extends  Form {
     public void setClubName(String clubName) {
         this.clubName = clubName;
     }
+
 }
