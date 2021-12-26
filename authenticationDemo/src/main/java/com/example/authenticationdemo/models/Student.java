@@ -16,7 +16,7 @@ public class Student extends User{
     //JoinRequestHandler joinRequest;
     //Set<Event> registeredPublicEvents = new HashSet<>();
 
-    @OneToMany(mappedBy = "creatorStudent")
+    @OneToMany(mappedBy = "creatorStudent", cascade = CascadeType.REMOVE)
     private Set<CreateClubForm> createdClubForm = new HashSet<>();
 
     public Set<CreateClubForm> getCreatedClubForm() {
@@ -36,7 +36,7 @@ public class Student extends User{
     }
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "clubMembers")
+    @ManyToMany(mappedBy = "clubMembers", fetch = FetchType.EAGER)
     private Set<Club> registeredClubs = new HashSet<>();
 
     @JsonIgnore
@@ -90,4 +90,5 @@ public class Student extends User{
     public void registerToEvent(Event event){
         registeredEvents.add(event);
     }
+
 }

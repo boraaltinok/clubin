@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -77,15 +78,20 @@ public class StudentController {
         return studentService.getStudent(id);
     }
 
-    @DeleteMapping ("/deleteStudent/{id}")
-    public String deleteStudent(@PathVariable int id){
-        studentService.deleteStudent(id);
-        return "deleted student's id : "+ id;
+    @DeleteMapping ("/deleteStudent/{student_id}")
+    public String deleteStudent(@PathVariable int student_id){
+        Optional<Student> student = studentService.getStudent(student_id);
+        if(student.isPresent()){
+            studentService.deleteStudent(student.get());
+            return "deleted student's id : " + student_id;
+        }
+        else{
+            return "Nothing is found to delete";
+        }
     }
 
     @PostMapping("/addStudent")
     public Student addStudent(@RequestBody Student student){
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         return studentService.addStudent(student);
     }
 
@@ -116,6 +122,8 @@ public class StudentController {
         return studentService.getStudentEventNotifications(student_id);
     }
 
-
-
+    @PutMapping("student/exitFromClub/student_id={student_id}")
+    public Club exitFromClub(@PathVariable int student_id){
+        return studentService.exitFromClub(student_id);
+    }
 }

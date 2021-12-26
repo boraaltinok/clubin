@@ -1,6 +1,9 @@
 package com.example.authenticationdemo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,7 +16,6 @@ public class CreateClubForm extends  Form {
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student creatorStudent;
-
     private boolean isSuccesfull = false;
     private boolean isPassedFromSac = false;
     private String clubName = "";

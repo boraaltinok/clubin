@@ -18,6 +18,7 @@ public class DeanOffice extends User{
     public DeanOffice() {
     }
 
+
     public DeanOffice(int id, String name, String surname, String password, String email) {
         super(id, name, surname, password, email);
     }

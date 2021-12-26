@@ -3,6 +3,8 @@ package com.example.authenticationdemo.requests;
 public class EventCreateRequest {
     int id;
     int club_id;
+    String location;
+
 
     public EventCreateRequest() {
     }

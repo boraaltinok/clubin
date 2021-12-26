@@ -57,7 +57,6 @@ public class DeanOfficeService {
     public CreateClubForm answerCreateClubForm(CreateClubFormRequest request) {
         DeanOffice deanOffice = deanOfficeRepository.getById(request.getDeanOffice_id());
         System.out.println("ILKKKK" + request.getCreateClubForm_id());
-        System.out.println("------------------------31----------------------");
         Optional<CreateClubForm> clubForm = createClubFormService.findById(request.getCreateClubForm_id());
         System.out.println("IKINCIIIII");
         if (clubForm.isPresent() && deanOffice != null) {
@@ -70,11 +69,36 @@ public class DeanOfficeService {
                 deanOffice.deleteCreateClubForm(clubForm.get());
                 Club club = new Club();
                 club.setId(request.getClub_id());
+                club.setName(request.getClubName());
+                clubService.addClub(club);
+                ClubManager manager = new ClubManager();
+                manager.setEmail(student.get().getEmail());
+                manager.setMyClub(club);
+                manager.setId(student.get().getId() + 1);
+                manager.setPassword(student.get().getPassword());
+                manager.setName(student.get().getName());
+                manager.setSurname(student.get().getSurname());
+                club.setClubManager(manager);
+                clubManagerService.createManager(manager);
+                studentService.updateStudentAccess(student.get());
+                //studentService.deleteStudent(clubForm.get().getCreatorStudent());
+
+                return clubForm.get();
+                /*
+                student.setName= student.getnAME + clubin
+
+                clubForm.get().setPassedFromSac(true);
+                clubForm.get().setSuccesfull(true);
+                deanOffice.deleteCreateClubForm(clubForm.get());
+                Club club = new Club();
+                club.setId(request.getClub_id());
                 club.setDescription(request.getDescription());
                 club.setContactInfo(request.getContactInfo());
                 club.setName(request.getClubName());
                 studentService.deleteStudent(student.get().getId());
-                ClubManager manager = new ClubManager();
+
+                 */
+                /*ClubManager manager = new ClubManager();
                 manager.setEmail(student.get().getEmail());
                 manager.setMyClub(club);
                 manager.setId(student.get().getId());
@@ -82,10 +106,9 @@ public class DeanOfficeService {
                 manager.setName(student.get().getName());
                 manager.setSurname(student.get().getSurname());
                 club.setClubManager(manager);
-                clubService.addClub(club);
-
+                 */
                 //clubManagerService.createManager(manager);
-                return clubForm.get();
+
             }
             else {
                     System.out.println("Student is null");

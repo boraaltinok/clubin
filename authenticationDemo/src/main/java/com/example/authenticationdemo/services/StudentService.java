@@ -6,6 +6,7 @@ import com.example.authenticationdemo.repositories.CreateClubFormRepository;
 import com.example.authenticationdemo.repositories.EventRepository;
 import com.example.authenticationdemo.repositories.StudentRepository;
 import com.example.authenticationdemo.requests.CreateClubFormRequest;
+import org.hibernate.event.service.spi.EventListenerRegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,9 +45,27 @@ public class StudentService {
         return student;
     }
 
-    public void deleteStudent(int id) {
-        studentRepository.deleteById(id);
+    public void deleteStudent(Student student) {
+        /*List<CreateClubForm> forms = createClubFormRepository.findByStudentId(student.getId());
+        for (CreateClubForm form: forms
+        ) {
+            createClubFormRepository.deleteById(form.getId());
+        }
+        Set<Club> clubs = new HashSet<>();
+        Set<Event> events = new HashSet<>();
+        student.setRegisteredClubs(clubs);
+        student.setRegisteredEvents(events);
+
+         */
+        Set<Club> clubSet = new HashSet<>();
+        Set<Event> events = new HashSet<>();
+        events = student.getRegisteredEvents();
+
+        student.setRegisteredEvents(events);
+        student.setRegisteredClubs(clubSet);
+        studentRepository.delete(student);
     }
+
     public Student addStudent(Student student){
         return studentRepository.save(student);
     }
@@ -89,6 +108,7 @@ public class StudentService {
             clubForm.setSuccesfull(false);
             clubForm.setPassedFromSac(false);
             clubForm.setClubName(createClubFormRequest.getClubName());
+//            clubForm.setStudentId(createClubFormRequest.getStudent_id());
             Student student = getStudent(createClubFormRequest.getStudent_id()).orElse(null);
             clubForm.setCreatorStudent(student);
             clubForm.setDeanOffice(deanOffice);
@@ -118,5 +138,16 @@ public class StudentService {
         return List.copyOf(studentsAllNotifications);
     }
 
-
+    public Student updateStudentAccess(Student student){
+        String newUserName = student.getName() +  "_old?";
+        String newPassword = student.getPassword() + "_old?";
+        student.setName(newUserName);
+        student.setName(newPassword);
+        studentRepository.save(student);
+        return student;
+    }
+    public Club exitFromClub(int student_id) {
+    //    Student student = studentRepository.findById(student_id).orElse(null);
+        return null;
+    }
 }

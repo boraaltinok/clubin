@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface CreateClubFormRepository extends JpaRepository<CreateClubForm, Integer> {
-    Optional<CreateClubForm> findById(int id);
+   // List<CreateClubForm> findByStudent_id(int id);
 }

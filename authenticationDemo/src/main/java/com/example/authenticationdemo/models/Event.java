@@ -1,6 +1,7 @@
 package com.example.authenticationdemo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -92,6 +93,16 @@ public class Event {
                 "id=" + id +
                 ", dependentClub=" + dependentClub +
                 '}';
+    }
+
+    public void addStudent(Student student){
+        registeredStudents.add(student);
+        student.getRegisteredEvents().add(this);
+    }
+
+    public void deleteStudent(Student student){
+        registeredStudents.remove(student);
+        student.getRegisteredEvents().add(this);
     }
 
     public Club getDependentClub() {

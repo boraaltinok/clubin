@@ -31,7 +31,7 @@ public class DeanOfficeController {
         return deanOfficeService.getDeanOffice(id);
     }
 
-    @PostMapping("/addDeanOffice")
+    @PostMapping(value = "/addDeanOffice")
     public DeanOffice createDeanOffice(@RequestBody DeanOffice deanOffice) {
         return deanOfficeService.createDeanOffice(deanOffice);
     }

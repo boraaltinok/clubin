@@ -1,5 +1,7 @@
 package com.example.authenticationdemo.sub;
 
+import com.example.authenticationdemo.models.Student;
+import com.example.authenticationdemo.repositories.StudentRepository;
 import com.example.authenticationdemo.repositories.UserRepository;
 import com.example.authenticationdemo.models.MyUserDetails;
 import com.example.authenticationdemo.models.User;
@@ -16,13 +18,15 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    StudentRepository studentRepository;
 
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByName(userName);
+        Optional<Student> student = studentRepository.findByName(userName);
 
-        user.orElseThrow(() -> new UsernameNotFoundException("Not found: "+ userName));
-        return user.map(MyUserDetails::new).get();
+        student.orElseThrow(() -> new UsernameNotFoundException("Not found: "+ userName));
+        return student.map(MyUserDetails::new).get();
     }
 }
