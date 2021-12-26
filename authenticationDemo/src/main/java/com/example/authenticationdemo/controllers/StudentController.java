@@ -9,9 +9,7 @@ import com.example.authenticationdemo.requests.CreateClubFormRequest;
 import com.example.authenticationdemo.services.CreateClubFormService;
 import com.example.authenticationdemo.services.CreateEventFormService;
 import com.example.authenticationdemo.services.StudentService;
-import com.example.authenticationdemo.sub.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;

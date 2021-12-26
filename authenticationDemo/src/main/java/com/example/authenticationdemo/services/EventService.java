@@ -2,8 +2,10 @@ package com.example.authenticationdemo.services;
 
 import com.example.authenticationdemo.models.Club;
 import com.example.authenticationdemo.models.Event;
+import com.example.authenticationdemo.models.SpecificEventNotification;
 import com.example.authenticationdemo.repositories.ClubRepository;
 import com.example.authenticationdemo.repositories.EventRepository;
+import com.example.authenticationdemo.repositories.SpecificEventNotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ public class EventService {
     EventRepository eventRepository;
     @Autowired
     ClubRepository clubRepository;
+    @Autowired
+    SpecificEventNotificationRepository specificEventNotificationRepository;
 
 
     public Event addEventToClub(int club_id, int event_id) {
@@ -44,6 +48,8 @@ public class EventService {
     public Event assignExistingEventToClub(int club_id,int event_id){
         Event event = eventRepository.findById(event_id).get();
         Club club = clubRepository.findById(club_id).get();
+
+        assignEventsNotification(club_id, event_id);
         System.out.println(club.toString());
         System.out.println(event.toString());
         event.setDependentClub(club);
@@ -51,5 +57,18 @@ public class EventService {
         clubRepository.save(club);
         return eventRepository.save(event);
 
+    }
+
+    private void assignEventsNotification(int club_id, int event_id) {
+        Event event = eventRepository.findById(event_id).get();
+        Club club = clubRepository.findById(club_id).get();
+        String clubName = club.getName();
+        String eventName = event.getName();
+        String eventDescription = event.getDescription();
+        SpecificEventNotification specificEventNotification = new SpecificEventNotification(true,event,clubName, eventName, eventDescription);
+        specificEventNotificationRepository.save(specificEventNotification);
+        event.setSpecificEventNotification(specificEventNotification);
+        eventRepository.save(event);
+        clubRepository.save(club);
     }
 }
