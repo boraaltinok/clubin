@@ -79,4 +79,7 @@ public class Student extends User{
     public void registerToEvent(Event event){
         registeredEvents.add(event);
     }
+
+
+
 }
