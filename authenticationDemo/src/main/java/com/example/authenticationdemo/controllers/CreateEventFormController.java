@@ -1,6 +1,4 @@
 package com.example.authenticationdemo.controllers;
-
-
 import com.example.authenticationdemo.models.CreateEventForm;
 import com.example.authenticationdemo.services.CreateEventFormService;
 import org.springframework.web.bind.annotation.CrossOrigin;

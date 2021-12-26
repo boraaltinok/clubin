@@ -22,39 +22,12 @@ import java.util.Optional;
 public class StudentController {
     @Autowired
     StudentService studentService;
-    /*@Autowired
-    CreateEventFormService createEventFormService;
-    @Autowired
-    CreateClubFormService createClubFormService;
-
-     */
-
-
-    /*@Autowired
-    UserRepository userRepository;
-    @Autowired
-    ClubRepository clubRepository;
-    @Autowired
-    AllClubsRepository allClubsRepository;*/
 
     @GetMapping("/")
     public String home() {
         return ("Welcome");
     }
 
-    /*@GetMapping("/user/{id}")
-    public Optional<User> currentUserName(@PathVariable int id){
-        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //MyUserDetails myUserDetails = (MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //Optional<User> curUser = userRepository.findById(myUserDetails.getId());
-        Optional<User> curUser = userRepository.findById(id);
-        if(curUser !=null){
-            return curUser;
-        }
-        else{
-            return null;
-        }
-    }*/
 
     @GetMapping("/admin")
     public String currentAdminName(Principal principal){
@@ -65,11 +38,6 @@ public class StudentController {
     public List<Student> displayAllStudents(){
         return studentService.displayAllStudents();
     }
-    /*@GetMapping("/allClubs")
-    public List<Club> displayAllClubs(){
-        List<Club> allClubs = clubRepository.findAll();
-        return allClubs;
-    }*/
     
     @GetMapping("/findSpecificStudent/student_id={id}")
     public Optional<Student> getStudent(@PathVariable int id){

@@ -16,8 +16,6 @@ import java.util.List;
 public class ClubManagerController {
     @Autowired
     ClubManagerService clubManagerService;
-
-
     //show all clubManager registered on the system
 
     @GetMapping("allManagers")

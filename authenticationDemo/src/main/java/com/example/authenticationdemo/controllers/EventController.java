@@ -11,6 +11,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class EventController {
+    //EventController class for managing EventRepository.
     @Autowired
     EventService eventService;
     @Autowired

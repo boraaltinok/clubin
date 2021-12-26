@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class ClubAdvisorController {
+
+    //Club advisor controller, to assign advisors into clubs via this class.
     @Autowired
     ClubAdvisorService clubAdvisorService;
     @PostMapping("/addClubAdvisor")

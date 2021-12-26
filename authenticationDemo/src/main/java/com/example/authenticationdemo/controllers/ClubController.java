@@ -15,7 +15,8 @@ import java.util.Optional;
 
 @RestController
 public class ClubController {
-
+    //provided REST API for ClubControl mechanism. Clubs are going to be created, deleted or updated
+    //via this class.
     @Autowired
     ClubService clubService;
 

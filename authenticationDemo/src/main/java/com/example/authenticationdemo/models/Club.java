@@ -68,10 +68,6 @@ public class Club {
         this.name = name;
     }
 
-    /*public void registerUserToClub(User user) {
-        clubMembers.add(user);
-        totalMemberCount = clubMembers.size();
-    }*/
     public void registerStudentToClub(Student student){
         clubMembers.add(student);
         totalMemberCount = clubMembers.size();
@@ -85,17 +81,6 @@ public class Club {
     }
     public void addToClubEvents(Event event){
         clubEvents.add(event);
-    }
-
-    @Override
-    public String toString() {
-        return "Club{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", totalMemberCount=" + totalMemberCount +
-                ", clubMembers=" + clubMembers +
-                ", clubEvents=" + clubEvents +
-                '}';
     }
 
     public ClubManager getClubManager() {

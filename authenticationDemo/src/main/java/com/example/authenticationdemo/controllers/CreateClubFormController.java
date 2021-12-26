@@ -17,6 +17,7 @@ public class CreateClubFormController {
     public CreateClubFormController(CreateClubFormService createClubFormService){
         this.createClubFormService  = createClubFormService;
     }
+    //planned methods for CreateClubFormController
     //getAllCreatedClubForms
     //getOneCreatedClubFormsById
     //getOneCreatedClubFormsByStudent(int studentId)

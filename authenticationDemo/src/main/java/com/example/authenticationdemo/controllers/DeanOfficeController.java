@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
-
 @RestController
 public class DeanOfficeController {
 
@@ -19,7 +18,6 @@ public class DeanOfficeController {
     DeanOfficeService deanOfficeService;
 
     //reach DeanOffice
-
     @GetMapping("/getAllCreateClubFormsInDeanOffice/dean_id={dean_id}")
     public List<CreateClubForm> getAllCreateClubForms(@PathVariable int dean_id) {
         return deanOfficeService.getAllCreateClubForms(dean_id);
