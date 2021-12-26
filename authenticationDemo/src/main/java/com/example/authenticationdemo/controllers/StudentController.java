@@ -1,7 +1,7 @@
 package com.example.authenticationdemo.controllers;
 
 import com.example.authenticationdemo.models.*;
-import com.example.authenticationdemo.repositories.AllClubsRepository;
+
 import com.example.authenticationdemo.repositories.ClubRepository;
 import com.example.authenticationdemo.repositories.StudentRepository;
 import com.example.authenticationdemo.repositories.UserRepository;

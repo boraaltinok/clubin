@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 public class ClubAdvisor extends User{
     int advised_clubs_id;
 
-
-
     public ClubAdvisor() {
     }
 
