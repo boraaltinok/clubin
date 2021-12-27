@@ -17,8 +17,8 @@ public class Event {
     int id;
     String name;
     Date date;
-    LocalTime startingTime;
-    LocalTime endingTime;
+    String startingTime;
+    String endingTime;
     int gePoint;
     int capacity;
     boolean isPassed;
@@ -26,8 +26,8 @@ public class Event {
     boolean isOnline;
     int budget;
 
-    public Event(int id, String name, Date date, LocalTime startingTime,
-                 LocalTime endingTime, int gePoint, int capacity, boolean isPassed,String description, boolean isOnline,
+    public Event(int id, String name, Date date, String startingTime,
+                 String endingTime, int gePoint, int capacity, boolean isPassed,String description, boolean isOnline,
                  int budget, Club dependentClub, Set<Student> registeredStudents,
                  SpecificEventNotification specificEventNotification) {
         this.id = id;
@@ -157,22 +157,6 @@ public class Event {
         this.date = date;
     }
 
-    public LocalTime getStartingTime() {
-        return startingTime;
-    }
-
-    public void setStartingTime(LocalTime startingTime) {
-        this.startingTime = startingTime;
-    }
-
-    public LocalTime getEndingTime() {
-        return endingTime;
-    }
-
-    public void setEndingTime(LocalTime endingTime) {
-        this.endingTime = endingTime;
-    }
-
     public int getGePoint() {
         return gePoint;
     }
@@ -219,5 +203,21 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStartingTime() {
+        return startingTime;
+    }
+
+    public void setStartingTime(String startingTime) {
+        this.startingTime = startingTime;
+    }
+
+    public String getEndingTime() {
+        return endingTime;
+    }
+
+    public void setEndingTime(String endingTime) {
+        this.endingTime = endingTime;
     }
 }

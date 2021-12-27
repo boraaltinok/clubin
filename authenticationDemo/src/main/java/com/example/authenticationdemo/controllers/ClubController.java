@@ -48,4 +48,6 @@ public class ClubController {
     public Event addEvent(@RequestBody EventCreateRequest eventCreateRequest, @PathVariable int club_id){
         return clubService.addEvent(eventCreateRequest, club_id);
     }
+
+
 }
