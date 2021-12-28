@@ -3,7 +3,6 @@ package com.example.authenticationdemo.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -21,10 +20,18 @@ public class CreateClubForm extends  Form {
     private int saCenter_id;
     private int deanOffice_id;
     private int club_id;
+    private int capacity;
+    private int budget;
+    private int event_id;
+    private int ge_point;
     private int s_id;
     private String clubName = "";
     public CreateClubForm() {
         super();
+        capacity = 0;
+        budget =0;
+        event_id = 0;
+        ge_point =0;
     }
 
     public int getStudent_id() {
