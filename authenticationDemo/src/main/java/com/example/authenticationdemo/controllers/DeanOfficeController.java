@@ -24,10 +24,15 @@ public class DeanOfficeController {
         return deanOfficeService.getAllCreateClubForms(dean_id);
     }
 
+    @GetMapping("/getAllEventForms/dean_id={dean_id}")
+    public List<CreateEventForm> getAllCreateEventForms(@PathVariable int dean_id){
+        return deanOfficeService.getAllCreateEventForms(dean_id);
+    }
+
     //I didn't write like /deanOffice/deanOffice_id = {deanfOffice_id} because we only have one deanoffice.
-    @GetMapping("/deanOffice/deanOffice_id = {deanOffice_id}")
-    public DeanOffice getDeanOffice(@PathVariable int id) {
-        return deanOfficeService.getDeanOffice(id);
+    @GetMapping("/deanOffice/dean_id={dean_id}")
+    public DeanOffice getDeanOffice(@PathVariable int dean_id) {
+        return deanOfficeService.getDeanOffice(dean_id);
     }
 
     @PostMapping("/addDeanOffice")

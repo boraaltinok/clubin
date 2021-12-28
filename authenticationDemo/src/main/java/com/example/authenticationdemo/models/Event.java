@@ -24,7 +24,7 @@ public class Event {
     boolean isPassed;
     String description;
     boolean isOnline;
-    int budget;
+    Integer budget;
 
     public Event(int id, String name, Date date, String startingTime,
                  String endingTime, int gePoint, int capacity, boolean isPassed,String description, boolean isOnline,
@@ -189,11 +189,11 @@ public class Event {
         isOnline = online;
     }
 
-    public int getBudget() {
+    public Integer getBudget() {
         return budget;
     }
 
-    public void setBudget(int budget) {
+    public void setBudget(Integer budget) {
         this.budget = budget;
     }
 

@@ -15,7 +15,7 @@ public class EventCreateRequest {
     String description;
     int event_id;
     int ge_point;
-    int budget;
+    Integer budget;
     public EventCreateRequest() {
     }
 

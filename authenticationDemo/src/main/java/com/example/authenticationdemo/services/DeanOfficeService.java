@@ -50,7 +50,9 @@ public class DeanOfficeService {
         DeanOffice deanOffice = deanOfficeRepository.getById(form.getDean_id());
         if(form != null && deanOffice != null ){
             form.setPassedFromSac(true);
-            deanOffice.addCreateEventForm(form);
+            System.out.println("INSIDE DEAN OFFICE SERVICE" + form.getBudget());
+            deanOffice.addCreateEventForms(form);
+            System.out.println("outsıde dean offıce servıce");
             return  form;
         }
         else{
@@ -151,5 +153,9 @@ public class DeanOfficeService {
     public List<CreateClubForm> getAllCreateClubForms(int dean_id) {
         DeanOffice deanOffice = deanOfficeRepository.getById(dean_id);
         return List.copyOf(deanOffice.getCreateClubForms());
+    }
+
+    public List<CreateEventForm> getAllCreateEventForms(int dean_id) {
+        return createEventFormService.getAllCreateEventForms();
     }
 }

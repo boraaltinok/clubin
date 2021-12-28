@@ -47,22 +47,6 @@ public class CreateEventForm extends Form {
         this.clubManager = clubManager;
     }
 
-    public int getDeanOffice_id() {
-        return deanOffice_id;
-    }
-
-    public void setDeanOffice_id(int deanOffice_id) {
-        this.deanOffice_id = deanOffice_id;
-    }
-
-    public int getSaCenter_id() {
-        return saCenter_id;
-    }
-
-    public void setSaCenter_id(int saCenter_id) {
-        this.saCenter_id = saCenter_id;
-    }
-
     public boolean isSuccesfull() {
         return isSuccesfull;
     }
@@ -78,7 +62,6 @@ public class CreateEventForm extends Form {
     public void setPassedFromSac(boolean passedFromSac) {
         isPassedFromSac = passedFromSac;
     }
-
 
     public String getLocation() {
         return location;

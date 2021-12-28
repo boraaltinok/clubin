@@ -79,8 +79,9 @@ public class StudentActivityCenterService {
     public CreateEventForm answerCreateEventFormByInt(int id){
         Optional<CreateEventForm> createEventForm = createEventFormService.getCreateEventForm(id);
         StudentActivityCenter sac = studentActivityCenterRepository.findById(createEventForm.get().getSac_id()).orElse(null);
-        if(sac != null && createEventForm.isPresent()){
+        if(sac != null){
             if(!createEventForm.get().isPassedFromSac()){
+                System.out.println("INSIDE OF SERVICE SAC ");
                 deanOfficeService.takeCreateEventForm(createEventForm.get());
                 Set<CreateEventForm> createEventForms = sac.getCreateEventForms();
                 createEventForm.get().setPassedFromSac(true);

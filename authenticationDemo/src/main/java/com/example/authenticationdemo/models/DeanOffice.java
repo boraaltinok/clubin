@@ -46,7 +46,8 @@ public class DeanOffice extends User{
         createClubForms.remove(form);
     }
 
-    public void addCreateEventForm(CreateEventForm form){
+    public void addCreateEventForms(CreateEventForm form){
+        System.out.println("INSIDE DEAN OFFICE  BUDGET " + form.getBudget() );
         createEventForms.add(form);
     }
     public void deleteCreateEventForm(CreateEventForm form){
