@@ -54,6 +54,7 @@ public class CreateClubFormService {
             DeanOffice deanOffice = (DeanOffice)userService.findById(createClubFormRequest.getDeanOffice_id());
             clubForm.setSuccesfull(false);
             Student student = studentService.getStudent(student_id).orElse(null);
+            clubForm.setStudent_id(student_id);
             clubForm.setCreatorStudent(student);
             clubForm.setDeanOffice(deanOffice);
             clubForm.setStudentActivityCenter(studentActivityCenter);

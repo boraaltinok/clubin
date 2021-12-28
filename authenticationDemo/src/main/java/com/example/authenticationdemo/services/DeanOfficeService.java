@@ -18,18 +18,24 @@ public class DeanOfficeService {
     CreateClubFormService createClubFormService;
     ClubService clubService;
     ClubManagerService clubManagerService;
-    //    ClubManagerService clubManagerService;
-
+    CreateEventFormService createEventFormService;
     UserService userService;
+    EventService eventService;
 
-    public DeanOfficeService(@Lazy DeanOfficeRepository deanOfficeRepository, @Lazy StudentService studentService,@Lazy CreateClubFormService createClubFormService, ClubService clubService, UserService userService,
-                                ClubManagerService clubManagerService) {
+
+    public DeanOfficeService(DeanOfficeRepository deanOfficeRepository,@Lazy StudentService studentService,
+                             @Lazy CreateClubFormService createClubFormService, ClubService clubService,
+                             @Lazy ClubManagerService clubManagerService, CreateEventFormService createEventFormService,
+                             UserService userService,
+                             EventService eventService) {
         this.deanOfficeRepository = deanOfficeRepository;
         this.studentService = studentService;
         this.createClubFormService = createClubFormService;
         this.clubService = clubService;
-        this.userService = userService;
         this.clubManagerService = clubManagerService;
+        this.createEventFormService = createEventFormService;
+        this.userService = userService;
+        this.eventService = eventService;
     }
 
     public DeanOffice getDeanOffice(int id) {
@@ -40,13 +46,23 @@ public class DeanOfficeService {
         return deanOfficeRepository.save(deanOffice);
     }
 
-    public CreateClubForm takeCreateClubForm(CreateClubFormRequest request, CreateClubForm clubForm) {
-        DeanOffice deanOffice = deanOfficeRepository.getById(request.getDeanOffice_id());
+    public CreateEventForm takeCreateEventForm(CreateEventForm form){
+        DeanOffice deanOffice = deanOfficeRepository.getById(form.getDean_id());
+        if(form != null && deanOffice != null ){
+            form.setPassedFromSac(true);
+            deanOffice.addCreateEventForm(form);
+            return  form;
+        }
+        else{
+            return null;
+        }
+    }
+
+    public CreateClubForm takeCreateClubForm(CreateClubForm clubForm) {
+        DeanOffice deanOffice = deanOfficeRepository.getById(clubForm.getDean_id());
         //CreateClubForm clubForm = createClubFormService.findById(request.getCreateClubForm_id());
         if (clubForm != null && deanOffice != null) {
-            System.out.println("YETEERRRRRRRR :" + clubForm.getId());
             clubForm.setPassedFromSac(true);
-            System.out.println("YETEERRRRRRRR :" + clubForm.getId());
             deanOffice.addCreateClubForms(clubForm);
             return clubForm;
         } else {
@@ -54,69 +70,80 @@ public class DeanOfficeService {
         }
     }
 
-    public CreateClubForm answerCreateClubForm(CreateClubFormRequest request) {
-        DeanOffice deanOffice = deanOfficeRepository.getById(request.getDeanOffice_id());
-        System.out.println("ILKKKK" + request.getCreateClubForm_id());
-        Optional<CreateClubForm> clubForm = createClubFormService.findById(request.getCreateClubForm_id());
-        System.out.println("IKINCIIIII");
-        if (clubForm.isPresent() && deanOffice != null) {
-            //find the attached student for createClubFormRequest
-            Optional<Student> student = studentService.getStudent(request.getStudent_id());
-                //take the student parameter and make it club manager and create the club.
-            if(student.isPresent()) {
-                clubForm.get().setPassedFromSac(true);
-                clubForm.get().setSuccesfull(true);
-                deanOffice.deleteCreateClubForm(clubForm.get());
-                Club club = new Club();
-                club.setId(request.getClub_id());
-                club.setName(request.getClubName());
-                clubService.addClub(club);
-                ClubManager manager = new ClubManager();
-                manager.setEmail(student.get().getEmail());
-                manager.setMyClub(club);
-                manager.setId(student.get().getId() + 1);
-                manager.setPassword(student.get().getPassword());
-                manager.setName(student.get().getName());
-                manager.setSurname(student.get().getSurname());
-                club.setClubManager(manager);
-                clubManagerService.createManager(manager);
-                studentService.updateStudentAccess(student.get());
-                //studentService.deleteStudent(clubForm.get().getCreatorStudent());
+    public CreateEventForm answerCreateEventForm(int form_id){
+        Optional<CreateEventForm> createEventForm = createEventFormService.getCreateEventForm(form_id);
+        DeanOffice deanOffice = deanOfficeRepository.getById(createEventForm.get().getDean_id());
 
-                return clubForm.get();
-                /*
-                student.setName= student.getnAME + clubin
-
-                clubForm.get().setPassedFromSac(true);
-                clubForm.get().setSuccesfull(true);
-                deanOffice.deleteCreateClubForm(clubForm.get());
-                Club club = new Club();
-                club.setId(request.getClub_id());
-                club.setDescription(request.getDescription());
-                club.setContactInfo(request.getContactInfo());
-                club.setName(request.getClubName());
-                studentService.deleteStudent(student.get().getId());
-
-                 */
-                /*ClubManager manager = new ClubManager();
-                manager.setEmail(student.get().getEmail());
-                manager.setMyClub(club);
-                manager.setId(student.get().getId());
-                manager.setPassword(student.get().getPassword());
-                manager.setName(student.get().getName());
-                manager.setSurname(student.get().getSurname());
-                club.setClubManager(manager);
-                 */
-                //clubManagerService.createManager(manager);
-
+        if(createEventForm.isPresent() && deanOffice != null){
+            if(createEventForm.get().isPassedFromSac()){
+                createEventForm.get().setPassedFromSac(true);
+                createEventForm.get().setSuccesfull(true);
+                deanOffice.deleteCreateEventForm(createEventForm.get());
+                Event event = new Event();
+                event.setDependentClub(clubService.displaySpecificClub(createEventForm.get().getClub_id()).orElse(null));
+                event.setId(createEventForm.get().getEvent_id());
+                event.setCapacity(createEventForm.get().getCapacity());
+                event.setStartingTime(createEventForm.get().getScheduledTime());
+                event.setEndingTime(createEventForm.get().getEndDate());
+                event.setBudget(createEventForm.get().getBudget());
+                event.setOnline(createEventForm.get().isOnline());
+                event.setGePoint(createEventForm.get().getGe_point());
+                event.setPassed(false);
+                eventService.createEvent(event);
+                return createEventForm.get();
             }
-            else {
+            else{
+                System.out.println("Create event form firstly need to be revised by StudentActivityCenter");
+                return null;
+            }
+        }
+        else{
+            System.out.println("Dean office is not exists");
+            return null;
+        }
+    }
+
+    public CreateClubForm answerCreateClubForm(int form_id) {
+        Optional<CreateClubForm> clubForm = createClubFormService.findById(form_id);
+        DeanOffice deanOffice = deanOfficeRepository.getById(clubForm.get().getDean_id());
+
+        if (clubForm != null && deanOffice != null ) {
+            if(clubForm.get().isPassedFromSac()){
+                //find the attached student for createClubFormRequest
+                Student student = studentService.getStudent(clubForm.get().getStudent_id()).orElse(null);
+                //take the student parameter and make it club manager and create the club.
+                if(student != null)  {
+                    clubForm.get().setPassedFromSac(true);
+                    clubForm.get().setSuccesfull(true);
+                    deanOffice.deleteCreateClubForm(clubForm.get());
+                    Club club = new Club();
+                    club.setId(clubForm.get().getClub_id());
+                    club.setName(clubForm.get().getClubName());
+                    clubService.addClub(club);
+                    ClubManager manager = new ClubManager();
+                    manager.setEmail(student.getEmail());
+                    manager.setMyClub(club);
+                    manager.setId(student.getId() + 1);
+                    manager.setPassword(student.getPassword());
+                    manager.setName(student.getName());
+                    manager.setSurname(student.getSurname());
+                    club.setClubManager(manager);
+                    clubManagerService.createManager(manager);
+                    studentService.updateStudentAccess(student);
+                    return clubForm.get();
+                }
+                else {
                     System.out.println("Student is null");
                     return null;
                 }
             }
+            else {
+                System.out.println("Club form need to pass from StudentActivityCenter ");
+                return null;
+            }
+        }
         else{
-            System.out.println("Dean office or clubForm is null!!!!");
+            System.out.println("Dean office or clubForm is null");
             return null;
         }
     }

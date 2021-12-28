@@ -37,6 +37,7 @@ public class EventController {
         return eventService.createEvent(event);
     }
 
+
     @PutMapping("/assignExistingEventToClub/club_id={club_id}/event_id={event_id}")
     public Event assignExistingEventToClub(@PathVariable int club_id, @PathVariable int event_id){
         return eventService.assignExistingEventToClub(club_id,event_id);

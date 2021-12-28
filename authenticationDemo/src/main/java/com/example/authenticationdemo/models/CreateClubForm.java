@@ -18,9 +18,21 @@ public class CreateClubForm extends  Form {
     private Student creatorStudent;
     private boolean isSuccesfull = false;
     private boolean isPassedFromSac = false;
+    private int saCenter_id;
+    private int deanOffice_id;
+    private int club_id;
+    private int s_id;
     private String clubName = "";
     public CreateClubForm() {
         super();
+    }
+
+    public int getStudent_id() {
+        return s_id;
+    }
+
+    public void setStudent_id(int student_id) {
+        this.s_id = student_id;
     }
 
     public Student getCreatorStudent() {
@@ -55,4 +67,27 @@ public class CreateClubForm extends  Form {
         this.clubName = clubName;
     }
 
+    public int getSac_id() {
+        return saCenter_id;
+    }
+
+    public void setSac_id(int sac_id) {
+        this.saCenter_id = sac_id;
+    }
+
+    public int getDean_id() {
+        return deanOffice_id;
+    }
+
+    public void setDean_id(int dean_id) {
+        this.deanOffice_id = dean_id;
+    }
+
+    public int getClub_id() {
+        return club_id;
+    }
+
+    public void setClub_id(int club_id) {
+        this.club_id = club_id;
+    }
 }

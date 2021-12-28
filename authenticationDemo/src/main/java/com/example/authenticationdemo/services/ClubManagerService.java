@@ -6,6 +6,8 @@ import com.example.authenticationdemo.requests.EventCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -13,14 +15,22 @@ public class ClubManagerService {
     @Autowired
     ClubManagerRepository clubManagerRepository;
     ClubService clubService;
+    StudentActivityCenterService studentActivityCenterService;
+    DeanOfficeService deanOfficeService;
+    CreateEventFormService createEventFormService;
 
-    public ClubManagerService(ClubManagerRepository clubManagerRepository,
-                              ClubService clubService){
-        this.clubManagerRepository = clubManagerRepository;
+
+    public ClubManagerService(ClubService clubService,
+                              StudentActivityCenterService studentActivityCenterService,
+                              DeanOfficeService deanOfficeService,
+                              CreateEventFormService createEventFormService) {
         this.clubService = clubService;
+        this.studentActivityCenterService = studentActivityCenterService;
+        this.deanOfficeService = deanOfficeService;
+        this.createEventFormService = createEventFormService;
     }
 
-    public ClubManager createManager(ClubManager manager){
+    public ClubManager createManager(ClubManager manager) {
         return clubManagerRepository.save(manager);
     }
 
@@ -29,14 +39,35 @@ public class ClubManagerService {
         return clubManagerRepository.findAll();
     }
 
-    public Club addEventToClub(EventCreateRequest eventCreateRequest) {
+    public CreateEventForm addEventToClub(EventCreateRequest eventCreateRequest) {
         Club club = clubService.displaySpecificClub(eventCreateRequest.getClub_id()).orElse(null);
-        /*if(club != null){
-            CreateEventForm eventForm =
+        ClubManager clubManager = club.getClubManager();
+        System.out.println("Club manager ID: " + clubManager.getId());
+        if (club != null) {
+            CreateEventForm createEventForm = new CreateEventForm();
+            createEventForm.setPassedFromSac(false);
+            createEventForm.setClubManager(clubManager);
+            createEventForm.setSuccesfull(false);
+            createEventForm.setOnline(false);
+            createEventForm.setDean_id(eventCreateRequest.getDean_id());
+            createEventForm.setSac_id(eventCreateRequest.getSac_id());
+            createEventForm.setLocation(eventCreateRequest.getLocation());
+            createEventForm.setDescription(eventCreateRequest.getDescription());
+            createEventForm.setScheduledTime(eventCreateRequest.getDate());
+            createEventForm.setId(eventCreateRequest.getForm_id());
+            createEventForm.setCapacity(eventCreateRequest.getCapacity());
+            createEventForm.setEventName(eventCreateRequest.getEventName());
+            createEventForm.setEvent_id(eventCreateRequest.getEvent_id());
+            createEventForm.setBudget(eventCreateRequest.getBudget());
+            createEventForm.setGe_point(eventCreateRequest.getGe_point());
+            createEventForm.setEndDate(eventCreateRequest.getEndDate());
+            System.out.println("!!!!!!!!!!!!!!!!123  " + createEventForm.getId());
+            createEventFormService.saveToRepo(createEventForm);
+            return createEventForm;
+        } else {
+            System.out.println("Exception in addEvenToClu in managerService");
+            return null;
         }
-
-         */
-        return null;
     }
 
 }

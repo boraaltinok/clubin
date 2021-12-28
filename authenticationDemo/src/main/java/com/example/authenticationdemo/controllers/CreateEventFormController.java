@@ -13,7 +13,7 @@ public class CreateEventFormController {
 
     CreateEventFormService createEventFormService;
 
-    @GetMapping
+    @GetMapping ("/allCreateEventForms")
     public List<CreateEventForm> getAllCreateEventForms(){
         return createEventFormService.getAllCreateEventForms();
     }

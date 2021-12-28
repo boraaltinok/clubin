@@ -110,10 +110,15 @@ public class StudentService {
             clubForm.setClubName(createClubFormRequest.getClubName());
 //            clubForm.setStudentId(createClubFormRequest.getStudent_id());
             Student student = getStudent(createClubFormRequest.getStudent_id()).orElse(null);
+            clubForm.setId(createClubFormRequest.getCreateClubForm_id());
+            clubForm.setStudent_id(student.getId());
             clubForm.setCreatorStudent(student);
             clubForm.setDeanOffice(deanOffice);
             clubForm.setStudentActivityCenter(studentActivityCenter);
             clubForm.setId(createClubFormRequest.getCreateClubForm_id());
+            clubForm.setSac_id(createClubFormRequest.getStudentActivityCenter_id());
+            clubForm.setDean_id(createClubFormRequest.getDeanOffice_id());
+            System.out.println("ID OF CREATE FORM : " + clubForm.getId());
             createClubFormRepository.save(clubForm);
             //studentActivityCenterService.addPendingCreateClubForm(createClubFormRequest);
             return clubForm;

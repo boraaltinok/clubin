@@ -2,6 +2,7 @@ package com.example.authenticationdemo.controllers;
 
 
 import com.example.authenticationdemo.models.CreateClubForm;
+import com.example.authenticationdemo.models.CreateEventForm;
 import com.example.authenticationdemo.models.Student;
 import com.example.authenticationdemo.models.StudentActivityCenter;
 import com.example.authenticationdemo.requests.CreateClubFormRequest;
@@ -31,9 +32,9 @@ public class StudentActivityCenterController {
         return studentActivityCenterService.addPendingCreateClubForm(request);
     }
 
-    @PutMapping("sac/answerCreateClubForm")
-    public CreateClubForm answerCreateClubForm(@RequestBody CreateClubFormRequest request){
-        return studentActivityCenterService.answerCreateClubForm(request);
+    @PutMapping("sac/answerCreateClubForm/form_id={form_id}")
+    public CreateClubForm answerCreateClubForm(@PathVariable int form_id){
+        return studentActivityCenterService.answerCreateClubFormById(form_id);
     }
 
     @PostMapping("addStudentActivityCenter")
@@ -46,4 +47,14 @@ public class StudentActivityCenterController {
         return studentActivityCenterService.seeAllCreateClubForms();
     }
 
+
+    @GetMapping("sac/allCreateEventForms")
+    public List<CreateEventForm> seeAllEventForms(){
+        return studentActivityCenterService.seeAllEventForms();
+    }
+
+    @PutMapping("/sac/answerCreateEventForm/form_id={form_id}")
+    public CreateEventForm answerCreateEventForm(@PathVariable int form_id){
+        return studentActivityCenterService.answerCreateEventFormByInt(form_id);
+    }
 }

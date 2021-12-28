@@ -2,6 +2,7 @@ package com.example.authenticationdemo.controllers;
 
 
 import com.example.authenticationdemo.models.CreateClubForm;
+import com.example.authenticationdemo.models.CreateEventForm;
 import com.example.authenticationdemo.models.DeanOffice;
 import com.example.authenticationdemo.requests.CreateClubFormRequest;
 import com.example.authenticationdemo.services.DeanOfficeService;
@@ -29,13 +30,18 @@ public class DeanOfficeController {
         return deanOfficeService.getDeanOffice(id);
     }
 
-    @PostMapping(value = "/addDeanOffice")
+    @PostMapping("/addDeanOffice")
     public DeanOffice createDeanOffice(@RequestBody DeanOffice deanOffice) {
         return deanOfficeService.createDeanOffice(deanOffice);
     }
 
-    @PostMapping("/answerCreateClubForm")
-    public CreateClubForm answerCreateClubForm(@RequestBody CreateClubFormRequest request) {
-        return deanOfficeService.answerCreateClubForm(request);
+    @PostMapping("/answerCreateClubForm/form_id={form_id}")
+    public CreateClubForm answerCreateClubForm(@PathVariable int form_id) {
+        return deanOfficeService.answerCreateClubForm(form_id);
+    }
+
+    @PostMapping("/answerCreateEventForm/form_id={form_id}")
+    public CreateEventForm answerCreateEventForm(@PathVariable int form_id){
+        return deanOfficeService.answerCreateEventForm(form_id);
     }
 }

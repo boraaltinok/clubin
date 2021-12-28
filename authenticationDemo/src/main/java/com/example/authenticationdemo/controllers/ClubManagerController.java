@@ -2,6 +2,7 @@ package com.example.authenticationdemo.controllers;
 
 import com.example.authenticationdemo.models.Club;
 import com.example.authenticationdemo.models.ClubManager;
+import com.example.authenticationdemo.models.CreateEventForm;
 import com.example.authenticationdemo.models.Event;
 import com.example.authenticationdemo.requests.EventCreateRequest;
 import com.example.authenticationdemo.services.ClubManagerService;
@@ -24,7 +25,7 @@ public class ClubManagerController {
     }
 
     @PostMapping("myClub/addEvent")
-    public Club editClub(@RequestBody EventCreateRequest eventCreateRequest){
+    public CreateEventForm addEventToClub(@RequestBody EventCreateRequest eventCreateRequest){
         return clubManagerService.addEventToClub(eventCreateRequest);
     }
 
