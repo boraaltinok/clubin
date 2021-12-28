@@ -24,6 +24,7 @@ public class CreateClubForm extends  Form {
     private int budget;
     private int event_id;
     private int ge_point;
+    private boolean isOnline;
     private int s_id;
     private String clubName = "";
     public CreateClubForm() {
@@ -32,6 +33,7 @@ public class CreateClubForm extends  Form {
         budget =0;
         event_id = 0;
         ge_point =0;
+        isOnline = false;
     }
 
     public int getStudent_id() {
