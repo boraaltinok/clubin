@@ -13,7 +13,6 @@ import java.util.Set;
 @Entity
 public class Event {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     String name;
     Date date;
@@ -25,6 +24,9 @@ public class Event {
     String description;
     boolean isOnline;
     Integer budget;
+
+    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
+    Notification notification;
 
     public Event(int id, String name, Date date, String startingTime,
                  String endingTime, int gePoint, int capacity, boolean isPassed,String description, boolean isOnline,
@@ -66,7 +68,7 @@ public class Event {
     private Set<Student> registeredStudents = new HashSet<>();
 
 
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "notification_id")
     private SpecificEventNotification specificEventNotification;
 

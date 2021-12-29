@@ -50,9 +50,7 @@ public class DeanOfficeService {
         DeanOffice deanOffice = deanOfficeRepository.getById(form.getDean_id());
         if(form != null && deanOffice != null ){
             form.setPassedFromSac(true);
-            System.out.println("INSIDE DEAN OFFICE SERVICE" + form.getBudget());
             deanOffice.addCreateEventForms(form);
-            System.out.println("outsıde dean offıce servıce");
             return  form;
         }
         else{
@@ -75,7 +73,7 @@ public class DeanOfficeService {
     public CreateEventForm answerCreateEventForm(int form_id){
         Optional<CreateEventForm> createEventForm = createEventFormService.getCreateEventForm(form_id);
         DeanOffice deanOffice = deanOfficeRepository.getById(createEventForm.get().getDean_id());
-
+        System.out.println(createEventForm.get().getBudget() + " ____ " + createEventForm.get().getId());
         if(createEventForm.isPresent() && deanOffice != null){
             if(createEventForm.get().isPassedFromSac()){
                 createEventForm.get().setPassedFromSac(true);
@@ -90,8 +88,12 @@ public class DeanOfficeService {
                 event.setBudget(createEventForm.get().getBudget());
                 event.setOnline(createEventForm.get().isOnline());
                 event.setGePoint(createEventForm.get().getGe_point());
+                event.setName(createEventForm.get().getEventName());
+                event.setDescription(createEventForm.get().getDescription());
                 event.setPassed(false);
                 eventService.createEvent(event);
+                eventService.assignEventsNotification(event.getDependentClub().getId(), event.getId());
+
                 return createEventForm.get();
             }
             else{
@@ -121,6 +123,8 @@ public class DeanOfficeService {
                     Club club = new Club();
                     club.setId(clubForm.get().getClub_id());
                     club.setName(clubForm.get().getClubName());
+                    club.setDescription(clubForm.get().getDescription());
+                    club.setContactInfo(clubForm.get().getContactInfo());
                     clubService.addClub(club);
                     ClubManager manager = new ClubManager();
                     manager.setEmail(student.getEmail());
@@ -140,7 +144,7 @@ public class DeanOfficeService {
                 }
             }
             else {
-                System.out.println("Club form need to pass from StudentActivityCenter ");
+                System.out.println("Club form need to be evalueated by StudentActivityCenter.");
                 return null;
             }
         }

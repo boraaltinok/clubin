@@ -1,7 +1,10 @@
 package com.example.authenticationdemo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
+@Table(name ="notifications")
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(
@@ -13,26 +16,21 @@ public abstract class Notification {
             @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
 
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
+    Event event;
+
     public Notification(){
 
     }
-    public Notification(boolean visibility, Event event) {
+    public Notification(boolean visibility) {
         this.visibility = visibility;
-        this.event = event;
+
     }
 
     boolean visibility;
 
-    @OneToOne
-    Event event;
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
 
     public int getId() {
         return id;
@@ -47,5 +45,13 @@ public abstract class Notification {
 
     public void setVisibility(boolean visibility) {
         this.visibility = visibility;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

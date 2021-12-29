@@ -118,7 +118,8 @@ public class StudentService {
             clubForm.setId(createClubFormRequest.getCreateClubForm_id());
             clubForm.setSac_id(createClubFormRequest.getStudentActivityCenter_id());
             clubForm.setDean_id(createClubFormRequest.getDeanOffice_id());
-            System.out.println("ID OF CREATE FORM : " + clubForm.getId());
+            clubForm.setDescription(createClubFormRequest.getDescription());
+            clubForm.setContactInfo(createClubFormRequest.getContactInfo());
             createClubFormRepository.save(clubForm);
             //studentActivityCenterService.addPendingCreateClubForm(createClubFormRequest);
             return clubForm;
@@ -144,12 +145,17 @@ public class StudentService {
     }
 
     public Student updateStudentAccess(Student student){
+        /*
         String newUserName = student.getName() +  "_old?";
         String newPassword = student.getPassword() + "_old?";
         student.setName(newUserName);
         student.setName(newPassword);
         studentRepository.save(student);
         return student;
+
+         */
+        studentRepository.deleteById(student.getId());
+        return null;
     }
     public Club exitFromClub(int student_id) {
     //    Student student = studentRepository.findById(student_id).orElse(null);

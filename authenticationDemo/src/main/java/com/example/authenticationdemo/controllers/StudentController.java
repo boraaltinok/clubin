@@ -80,7 +80,6 @@ public class StudentController {
     // postmapping- createClubForm()
     @PostMapping("/createClubFormStudent")
     public CreateClubForm addCreateClubForm(@RequestBody CreateClubFormRequest createClubFormRequest ){
-        System.out.println("YETEEEEEEEEEEEEEEEEEERRR");
         return studentService.addCreateClubForm(createClubFormRequest);
     }
     @GetMapping("/getStudentEventNotifications/student_id={student_id}")

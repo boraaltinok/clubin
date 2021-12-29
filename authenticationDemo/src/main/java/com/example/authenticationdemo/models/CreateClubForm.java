@@ -25,6 +25,8 @@ public class CreateClubForm extends  Form {
     private int event_id;
     private int ge_point;
     private boolean isOnline;
+    String description;
+    String contactInfo;
     private int s_id;
     private String clubName = "";
     public CreateClubForm() {
@@ -98,5 +100,21 @@ public class CreateClubForm extends  Form {
 
     public void setClub_id(int club_id) {
         this.club_id = club_id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
     }
 }

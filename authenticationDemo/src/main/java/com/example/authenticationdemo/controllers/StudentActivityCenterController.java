@@ -55,7 +55,6 @@ public class StudentActivityCenterController {
 
     @PutMapping("/sac/answerCreateEventForm/form_id={form_id}")
     public CreateEventForm answerCreateEventForm(@PathVariable int form_id){
-        System.out.println("INSIDE CONTROLLER STUDENT ACTIVITY");
         return studentActivityCenterService.answerCreateEventFormByInt(form_id);
     }
 }

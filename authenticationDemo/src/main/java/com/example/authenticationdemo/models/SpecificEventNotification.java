@@ -12,28 +12,8 @@ public class SpecificEventNotification extends Notification{
     String eventName;
     String eventDescription;
 
-
-    @OneToOne(mappedBy = "specificEventNotification")
-    Event event;
-
     public SpecificEventNotification(){
-
-    }
-    public SpecificEventNotification(boolean visibility, Event event, String clubName, String eventName, String eventDescription) {
-        super(visibility, event);
-        this.clubName = clubName;
-        this.eventName = eventName;
-        this.eventDescription = clubName+": " +eventName + " \n" + "" + event.getDescription() ;
-    }
-
-    @Override
-    public Event getEvent() {
-        return event;
-    }
-
-    @Override
-    public void setEvent(Event event) {
-        this.event = event;
+        visibility = true;
     }
 
     public String getClubName() {
@@ -59,4 +39,6 @@ public class SpecificEventNotification extends Notification{
     public void setEventDescription(String eventDescription) {
         this.eventDescription = eventDescription;
     }
+
+
 }

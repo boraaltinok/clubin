@@ -56,19 +56,24 @@ public class EventService {
         club.addToClubEvents(event);
         clubRepository.save(club);
         return eventRepository.save(event);
-
     }
 
-    private void assignEventsNotification(int club_id, int event_id) {
+    public void assignEventsNotification(int club_id, int event_id) {
+        System.out.println("Event id " + event_id);
         Event event = eventRepository.findById(event_id).get();
         Club club = clubRepository.findById(club_id).get();
         String clubName = club.getName();
         String eventName = event.getName();
         String eventDescription = event.getDescription();
-        SpecificEventNotification specificEventNotification = new SpecificEventNotification(true,event,clubName, eventName, eventDescription);
-        specificEventNotificationRepository.save(specificEventNotification);
-        event.setSpecificEventNotification(specificEventNotification);
+        SpecificEventNotification notification = new SpecificEventNotification();
+        notification.setClubName(event.getDependentClub().getName());
+        notification.setEvent(event);
+        notification.setEventName(event.getName());
+        notification.setEventDescription(event.getDescription());
+        notification.setVisibility(true);
+        event.setSpecificEventNotification(notification);
+        specificEventNotificationRepository.save(notification);
+        event.setSpecificEventNotification(notification);
         eventRepository.save(event);
-        clubRepository.save(club);
     }
 }
