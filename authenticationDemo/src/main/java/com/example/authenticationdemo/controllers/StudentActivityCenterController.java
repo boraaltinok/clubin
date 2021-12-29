@@ -32,10 +32,6 @@ public class StudentActivityCenterController {
         return studentActivityCenterService.addPendingCreateClubForm(request);
     }
 
-    @PutMapping("sac/answerCreateClubForm/form_id={form_id}")
-    public CreateClubForm answerCreateClubForm(@PathVariable int form_id){
-        return studentActivityCenterService.answerCreateClubFormById(form_id);
-    }
 
     @PostMapping("addStudentActivityCenter")
     public StudentActivityCenter addStudentActivityCenter(@RequestBody StudentActivityCenter studentActivityCenter){
@@ -53,8 +49,15 @@ public class StudentActivityCenterController {
         return studentActivityCenterService.seeAllEventForms();
     }
 
+
+    @PutMapping("sac/answerCreateClubForm/form_id={form_id}")
+    public CreateClubForm answerCreateClubForm(@PathVariable int form_id){
+        return studentActivityCenterService.answerCreateClubFormById(form_id);
+    }
+
     @PutMapping("/sac/answerCreateEventForm/form_id={form_id}")
     public CreateEventForm answerCreateEventForm(@PathVariable int form_id){
         return studentActivityCenterService.answerCreateEventFormByInt(form_id);
     }
+
 }

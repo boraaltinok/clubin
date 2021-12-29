@@ -78,11 +78,9 @@ public class StudentActivityCenterService {
 
     public CreateEventForm answerCreateEventFormByInt(int id){
         Optional<CreateEventForm> createEventForm = createEventFormService.getCreateEventForm(id);
-        System.out.println("Create event form id " + createEventForm.get().getSac_id());
         StudentActivityCenter sac = studentActivityCenterRepository.findById(createEventForm.get().getSac_id()).orElse(null);
         if(sac != null){
             if(!createEventForm.get().isPassedFromSac()){
-                System.out.println("INSIDE OF SERVICE SAC ");
                 deanOfficeService.takeCreateEventForm(createEventForm.get());
                 createEventForm.get().setPassedFromSac(true);
                 createEventFormService.saveToRepo(createEventForm.get());
@@ -100,21 +98,14 @@ public class StudentActivityCenterService {
     }
 
     public CreateClubForm answerCreateClubFormById(int form_id){
-        Optional<CreateClubForm> createEventForm = createClubFormService.findById(form_id);
-        System.out.println(createEventForm.get().getSac_id() + " _________________________");
-        StudentActivityCenter sac = studentActivityCenterRepository.findById(createEventForm.get().getSac_id()).orElse(null);
-        if(sac != null && createEventForm.isPresent()){
-            if(!createEventForm.get().isPassedFromSac()){
-                deanOfficeService.takeCreateClubForm(createEventForm.get());
-               /* Set<CreateClubForm> createEventForms = sac.getCreateClubForms();
-                createEventForm.get().setPassedFromSac(true);
-                createEventForms.remove(createEventForm.get());
-                sac.setCreateClubForms(createEventForms);
-
-                */
-               createEventForm.get().setPassedFromSac(true);
-               createClubFormService.saveForm(createEventForm.get());
-                return createEventForm.get();
+        Optional<CreateClubForm> createClubForm = createClubFormService.findById(form_id);
+        StudentActivityCenter sac = studentActivityCenterRepository.findById(createClubForm.get().getSac_id()).orElse(null);
+        if(sac != null && createClubForm.isPresent()){
+            if(!createClubForm.get().isPassedFromSac()){
+                deanOfficeService.takeCreateClubForm(createClubForm.get());
+               createClubForm.get().setPassedFromSac(true);
+               createClubFormService.saveForm(createClubForm.get());
+                return createClubForm.get();
             }
             else{
                 System.out.println("Form is already reviewed by the StudentActivityCenter");
